@@ -12,16 +12,20 @@ Toàn bộ đều **miễn phí**.
 2. Copy URL repo vừa tạo (dạng `https://github.com/ten-tai-khoan/website-khoa-astro.git`).
 3. Báo lại cho trợ lý AI URL này — trợ lý sẽ hỏi xác nhận trước khi chạy `git init`, `git add`, `git commit`, `git remote add`, `git push` (đẩy code lên là thao tác cần bạn xác nhận).
 
-## 2. Kết nối Cloudflare Pages
+## 2. Site đã chạy thật tại Cloudflare Workers
 
-1. Đăng nhập / tạo tài khoản tại [dash.cloudflare.com](https://dash.cloudflare.com).
-2. Vào **Workers & Pages** → **Create** → **Pages** → **Connect to Git**, chọn repo GitHub vừa tạo.
-3. Cấu hình build:
-   - **Framework preset**: Astro (Cloudflare tự điền phần lớn giá trị dưới đây)
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-   - Trong **Environment variables**, thêm `NODE_VERSION` = `22` (hoặc `24`)
-4. Bấm **Save and Deploy**. Sau vài phút sẽ có URL dạng `https://ten-du-an.pages.dev` — đây là link chạy thật, miễn phí, băng thông không giới hạn, không "ngủ".
+Site đang chạy tại **https://wedsite-khoa.lqdung3.workers.dev** (deploy bằng `wrangler deploy`, cấu hình trong `wrangler.jsonc`). Lưu ý: luồng "Connect to Git" tự động của Cloudflare (Workers Builds) từng bị lỗi 522 ở bước validate nội bộ — nên lần đầu đã deploy thủ công bằng CLI. Xem mục 2.1 bên dưới để tự động hoá việc build+deploy qua GitHub Actions thay vì phải chạy tay mỗi lần.
+
+### 2.1. Deploy tự động khi push code (GitHub Actions)
+
+Đã có sẵn file `.github/workflows/deploy.yml` — mỗi khi push lên nhánh `main`, GitHub sẽ tự `npm run build` rồi `wrangler deploy`. Để bật, cần thêm 2 secret cho repo GitHub:
+
+1. Vào **dash.cloudflare.com** → **My Profile** (icon góc phải) → **API Tokens** → **Create Token** → chọn template **"Edit Cloudflare Workers"** → **Continue to summary** → **Create Token**. Copy token hiện ra (chỉ hiện 1 lần).
+2. Lấy **Account ID**: ở trang chính Workers & Pages, Account ID hiển thị ở cột phải, hoặc trong URL dashboard dạng `dash.cloudflare.com/<Account-ID>/...`.
+3. Vào repo GitHub → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**, tạo lần lượt:
+   - `CLOUDFLARE_API_TOKEN` = token vừa tạo ở bước 1
+   - `CLOUDFLARE_ACCOUNT_ID` = Account ID ở bước 2
+4. Từ giờ mỗi lần push code lên `main`, vào tab **Actions** trên GitHub để xem tiến trình build/deploy tự động.
 
 ## 3. Bật đăng nhập cho Decap CMS (chỉnh nội dung qua `/admin`)
 
@@ -30,7 +34,7 @@ Vì hosting là Cloudflare (không phải Netlify), Decap CMS cần một dịch
 ### 3.1. Tạo GitHub OAuth App
 1. Vào **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**.
 2. Điền:
-   - **Homepage URL**: `https://ten-du-an.pages.dev` (URL Cloudflare Pages ở bước 2)
+   - **Homepage URL**: `https://wedsite-khoa.lqdung3.workers.dev`
    - **Authorization callback URL**: `https://cms-auth.<ten-subdomain-cua-ban>.workers.dev/callback` (điền tạm, sẽ khớp chính xác sau khi deploy Worker ở bước 3.2)
 3. Lưu lại **Client ID** và **Client Secret**.
 
@@ -69,7 +73,7 @@ backend:
 
 Commit và push thay đổi này lên GitHub — Cloudflare Pages sẽ tự build lại.
 
-Từ giờ, vào `https://ten-du-an.pages.dev/admin/` để đăng nhập bằng tài khoản GitHub và chỉnh sửa: Tin tức, Thông báo, Đội ngũ giảng viên, Biểu mẫu, Cấu hình chung, Giới thiệu.
+Từ giờ, vào `https://wedsite-khoa.lqdung3.workers.dev/admin/index.html` để đăng nhập bằng tài khoản GitHub và chỉnh sửa: Tin tức, Thông báo, Đội ngũ giảng viên, Biểu mẫu, Cấu hình chung, Giới thiệu.
 
 ## 4. Google Form cho trang Liên hệ
 
@@ -84,17 +88,18 @@ Từ giờ, vào `https://ten-du-an.pages.dev/admin/` để đăng nhập bằng
 
 ## 5. Domain riêng của trường (tuỳ chọn)
 
-Nếu muốn dùng địa chỉ như `khoadieuduong.cdytdt.edu.vn` thay vì `*.pages.dev`:
+Nếu muốn dùng địa chỉ như `khoadieuduong.cdytdt.edu.vn` thay vì `*.workers.dev`:
 
 1. Domain `cdytdt.edu.vn` cần được quản lý DNS qua Cloudflare (hoặc ít nhất ủy quyền một subdomain CNAME sang Cloudflare) — cần phối hợp với người quản trị DNS của trường.
-2. Trong Cloudflare Pages project → **Custom domains** → **Set up a custom domain**, làm theo hướng dẫn (Cloudflare tự tạo bản ghi CNAME cần thiết nếu domain đã ở trong tài khoản Cloudflare đó).
+2. Trong Cloudflare dashboard → **Workers & Pages** → chọn Worker `wedsite-khoa` → tab **Settings** → **Domains & Routes** → **Add** → **Custom domain**, làm theo hướng dẫn.
 
 ---
 
 ## Việc bạn cần làm ngay bây giờ
 
-- [ ] Tạo GitHub repo trống (bước 1) và cho trợ lý AI biết URL để đẩy code lên
-- [ ] Tạo/đăng nhập tài khoản Cloudflare và kết nối Pages (bước 2)
+- [x] Tạo GitHub repo, đẩy code lên (`github.com/lqdungdt/wedsite-khoa`)
+- [x] Deploy lần đầu lên Cloudflare Workers (`wedsite-khoa.lqdung3.workers.dev`)
+- [ ] Thêm 2 secret `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` vào GitHub repo để bật deploy tự động (bước 2.1)
 - [ ] Nếu muốn dùng CMS để tự đăng tin: làm bước 3
 - [ ] Nếu muốn form liên hệ: tạo Google Form (bước 4)
 
