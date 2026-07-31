@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { getEntry } from 'astro:content';
+
+const cauHinh = await getEntry('cauHinh', 'site');
+const dienThoaiTel = cauHinh?.data.dien_thoai.replace(/\s/g, '') ?? '';
+
+// TODO: thay bằng link nhúng Google Form thật (Form → Gửi → Nhúng <iframe> → copy URL vào src bên dưới).
+const GOOGLE_FORM_URL = '';
+---
+
+<BaseLayout title="Liên hệ">
+  <PageTitle tieuDe="Liên hệ" />
+
+  <div class="grid gap-8 px-4 py-6 sm:grid-cols-2">
+    <section>
+      <div class="thanh-muc">Văn phòng khoa</div>
+      <dl class="flex flex-col gap-3 rounded-b-o border border-t-0 border-ke bg-giay-sang p-4 text-sm">
+        <div>
+          <dt class="nhan-nho">Đơn vị</dt>
+          <dd class="mt-0.5 font-medium text-muc">{cauHinh?.data.ten_khoa}</dd>
+          <dd class="text-nhan">{cauHinh?.data.ten_truong}</dd>
+        </div>
+        <div>
+          <dt class="nhan-nho">Địa chỉ</dt>
+          <dd class="mt-0.5">{cauHinh?.data.dia_chi}</dd>
+        </div>
+        <div>
+          <dt class="nhan-nho">Điện thoại</dt>
+          <dd class="mt-0.5">
+            <a href={`tel:${dienThoaiTel}`} class="text-khoa hover:underline">{cauHinh?.data.dien_thoai}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="nhan-nho">Email</dt>
+          <dd class="mt-0.5">
+            <a href={`mailto:${cauHinh?.data.email}`} class="text-khoa hover:underline">{cauHinh?.data.email}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="nhan-nho">Giờ làm việc</dt>
+          <dd class="mt-0.5">{cauHinh?.data.gio_lam_viec}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section>
+      <div class="thanh-muc">Gửi yêu cầu / góp ý</div>
+      <div class="rounded-b-o border border-t-0 border-ke bg-giay-sang p-4">
+        {
+          GOOGLE_FORM_URL ? (
+            <iframe
+              src={GOOGLE_FORM_URL}
+              width="100%"
+              height="600"
+              class="rounded-o border border-ke"
+              title="Biểu mẫu liên hệ"
+            >
+              Đang tải…
+            </iframe>
+          ) : (
+            <p class="text-sm text-nhan">
+              Biểu mẫu liên hệ đang được cập nhật. Vui lòng liên hệ trực tiếp qua điện thoại hoặc email ở cột bên
+              trái.
+            </p>
+          )
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

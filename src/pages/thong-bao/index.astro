@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DanhSachBaiViet from '../../components/DanhSachBaiViet.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('thongBao');
+---
+
+<BaseLayout title="Thông báo">
+  <DanhSachBaiViet
+    entries={entries}
+    duongDanGoc="/thong-bao"
+    tieuDe="Thông báo"
+    moTa="Thông báo về đào tạo, thi cử, nghiên cứu khoa học và các hoạt động của khoa."
+  />
+</BaseLayout>

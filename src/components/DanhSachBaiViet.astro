@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PageTitle from './PageTitle.astro';
+import { ngay } from '../lib/dinh-dang';
+
+interface Props {
+  entries: CollectionEntry<'tinTuc' | 'thongBao'>[];
+  duongDanGoc: string;
+  tieuDe: string;
+  moTa: string;
+}
+const { entries, duongDanGoc, tieuDe, moTa } = Astro.props;
+
+const sapXep = [...entries].sort((a, b) => {
+  if (a.data.noiBat !== b.data.noiBat) return a.data.noiBat ? -1 : 1;
+  return b.data.ngayTao.getTime() - a.data.ngayTao.getTime();
+});
+---
+
+<PageTitle tieuDe={tieuDe} moTa={moTa} />
+
+<div class="px-4 py-6">
+  {
+    sapXep.length === 0 ? (
+      <p class="text-sm text-nhan">Chưa có bài nào được đăng.</p>
+    ) : (
+      <ul class="divide-y divide-ke overflow-hidden rounded-o border border-ke bg-giay-sang">
+        {sapXep.map((bv) => (
+          <li>
+            <a
+              href={`${duongDanGoc}/${bv.id}`}
+              class="group flex flex-col gap-1 px-4 py-4 hover:bg-khoa-nhat sm:flex-row sm:items-baseline sm:gap-6"
+            >
+              <time datetime={bv.data.ngayTao.toISOString()} class="whitespace-nowrap font-ma text-xs text-nhan">
+                {ngay(bv.data.ngayTao)}
+              </time>
+              <div class="min-w-0">
+                <h2 class="muc-tin text-base font-medium leading-snug text-muc-nhat group-hover:text-khoa">
+                  {bv.data.noiBat ? <span class="mr-1.5 font-semibold text-dau-do">[Nổi bật]</span> : null}
+                  {bv.data.tieuDe}
+                </h2>
+                {bv.data.tomTat ? <p class="mt-1 text-sm leading-relaxed text-nhan">{bv.data.tomTat}</p> : null}
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>

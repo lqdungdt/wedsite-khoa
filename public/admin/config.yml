@@ -1,0 +1,122 @@
+backend:
+  name: github
+  # TODO: thay bằng "ten-tai-khoan-github/ten-repo" sau khi tạo repo GitHub.
+  repo: your-github-org/website-khoa-astro
+  branch: main
+  # TODO: thay bằng URL Cloudflare Worker (sveltia-cms-auth) sau khi deploy - xem HUONG-DAN-TRIEN-KHAI.md
+  base_url: https://cms-auth.YOURSUBDOMAIN.workers.dev
+  auth_endpoint: auth
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "tin-tuc"
+    label: "Tin tức"
+    folder: "src/content/tin-tuc"
+    create: true
+    identifier_field: tieuDe
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+      - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Tóm tắt", name: "tomTat", widget: "text" }
+      - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - { label: "Nội dung", name: "body", widget: "markdown" }
+
+  - name: "thong-bao"
+    label: "Thông báo"
+    folder: "src/content/thong-bao"
+    create: true
+    identifier_field: tieuDe
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+      - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Tóm tắt", name: "tomTat", widget: "text" }
+      - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - { label: "Nội dung", name: "body", widget: "markdown" }
+
+  - name: "giang-vien"
+    label: "Đội ngũ giảng viên"
+    folder: "src/content/giang-vien"
+    create: true
+    identifier_field: hoTen
+    slug: "{{slug}}"
+    fields:
+      - { label: "Họ tên", name: "hoTen", widget: "string" }
+      - label: "Học vị"
+        name: "hocVi"
+        widget: "select"
+        options: ["Cử nhân", "Cử nhân Điều dưỡng", "Kỹ thuật viên", "CKI", "CKII", "Thạc sĩ", "BSCKI", "BSCKII", "Tiến sĩ"]
+      - { label: "Chức vụ", name: "chucVu", widget: "string" }
+      - { label: "Chuyên môn", name: "chuyenMon", widget: "string", required: false }
+      - { label: "Email", name: "email", widget: "string" }
+      - { label: "Giới thiệu", name: "gioiThieu", widget: "text", required: false }
+      - label: "Ảnh"
+        name: "anh"
+        widget: "image"
+        required: false
+        media_folder: "/public/giang-vien"
+        public_folder: "/giang-vien"
+      - label: "Nhóm"
+        name: "nhom"
+        widget: "select"
+        default: "giang-vien"
+        options:
+          - { label: "Lãnh đạo khoa", value: "lanh-dao" }
+          - { label: "Văn phòng khoa", value: "van-phong" }
+          - { label: "Giảng viên", value: "giang-vien" }
+      - { label: "Thứ tự hiển thị", name: "thuTu", widget: "number", value_type: "int", default: 0 }
+
+  - name: "bieu-mau"
+    label: "Biểu mẫu"
+    folder: "src/content/bieu-mau"
+    create: true
+    identifier_field: tieuDe
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+      - { label: "Mô tả", name: "moTa", widget: "text" }
+      - label: "Đối tượng sử dụng"
+        name: "doiTuong"
+        widget: "select"
+        options:
+          - { label: "Giảng viên", value: "giang-vien" }
+          - { label: "Sinh viên", value: "sinh-vien" }
+      - label: "Tệp đính kèm"
+        name: "file"
+        widget: "file"
+        media_folder: "/public/bieu-mau"
+        public_folder: "/bieu-mau"
+
+  - name: "cau-hinh"
+    label: "Cấu hình chung"
+    files:
+      - name: "site"
+        label: "Thông tin chung của khoa"
+        file: "src/content/cau-hinh.yaml"
+        fields:
+          - label: "Thông tin chung"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Tên khoa", name: "ten_khoa", widget: "string" }
+              - { label: "Tên trường", name: "ten_truong", widget: "string" }
+              - { label: "Địa chỉ", name: "dia_chi", widget: "string" }
+              - { label: "Điện thoại", name: "dien_thoai", widget: "string" }
+              - { label: "Email", name: "email", widget: "string" }
+              - { label: "Giới thiệu ngắn", name: "gioi_thieu_ngan", widget: "text" }
+              - { label: "Giờ làm việc", name: "gio_lam_viec", widget: "string" }
+
+  - name: "gioi-thieu"
+    label: "Giới thiệu về khoa"
+    files:
+      - name: "gioi-thieu"
+        label: "Nội dung giới thiệu"
+        file: "src/content/gioi-thieu/index.md"
+        fields:
+          - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+          - { label: "Nội dung", name: "body", widget: "markdown" }

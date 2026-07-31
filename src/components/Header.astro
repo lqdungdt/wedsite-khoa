@@ -1,0 +1,109 @@
+---
+import { getEntry } from 'astro:content';
+
+const cauHinh = await getEntry('cauHinh', 'site');
+
+const MENU_CHINH: {
+  nhan: string;
+  duongDan: string;
+  con?: { nhan: string; duongDan: string }[];
+}[] = [
+  { nhan: 'Trang chủ', duongDan: '/' },
+  {
+    nhan: 'Giới thiệu',
+    duongDan: '/gioi-thieu',
+    con: [
+      { nhan: 'Giới thiệu về khoa', duongDan: '/gioi-thieu' },
+      { nhan: 'Đội ngũ giảng viên', duongDan: '/doi-ngu' },
+    ],
+  },
+  { nhan: 'Thông báo', duongDan: '/thong-bao' },
+  { nhan: 'Tin tức', duongDan: '/tin-tuc' },
+  { nhan: 'Biểu mẫu', duongDan: '/bieu-mau' },
+  { nhan: 'Liên hệ', duongDan: '/lien-he' },
+];
+
+const LOI_TAT = [
+  { nhan: 'Đội ngũ giảng viên', duongDan: '/doi-ngu' },
+  { nhan: 'Thông báo mới', duongDan: '/thong-bao' },
+  { nhan: 'Biểu mẫu', duongDan: '/bieu-mau' },
+];
+---
+
+<header>
+  <div class="bg-giay-sang">
+    <div class="flex items-center gap-4 px-4 py-3">
+      <a href="/" class="flex items-center gap-3">
+        <img
+          src="/logo-truong.png"
+          alt="Logo Trường Cao đẳng Y tế Đồng Tháp"
+          width="56"
+          height="56"
+          class="h-14 w-14 shrink-0 object-contain"
+        />
+        <span class="flex flex-col leading-tight">
+          <span class="font-tieu-de text-lg font-bold uppercase text-khoa sm:text-xl">
+            {cauHinh?.data.ten_khoa}
+          </span>
+          <span class="text-sm text-nhan">{cauHinh?.data.ten_truong}</span>
+        </span>
+      </a>
+
+      <div class="ml-auto hidden items-center gap-3 rounded-o bg-khoa px-5 py-2.5 text-right text-white md:flex">
+        <div class="leading-tight">
+          <p class="font-tieu-de text-base font-semibold">Cổng thông tin</p>
+          <p class="text-xs text-white/80">Đào tạo · Nghiên cứu · Phục vụ người bệnh</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="Điều hướng chính" class="bg-be">
+    <div class="flex flex-wrap items-stretch px-2">
+      {
+        MENU_CHINH.map((muc) => (
+          <div class="group relative">
+            <a
+              href={muc.duongDan}
+              class="flex items-center gap-1 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-muc hover:bg-be-dam"
+            >
+              {muc.nhan}
+              {muc.con ? (
+                <span aria-hidden="true" class="text-xs">
+                  ▾
+                </span>
+              ) : null}
+            </a>
+            {muc.con ? (
+              <div class="absolute left-0 top-full z-30 hidden min-w-56 flex-col border border-ke bg-giay-sang py-1 shadow-lg group-hover:flex group-focus-within:flex">
+                {muc.con.map((c) => (
+                  <a
+                    href={c.duongDan}
+                    class="px-4 py-2 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa"
+                  >
+                    {c.nhan}
+                  </a>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        ))
+      }
+    </div>
+  </nav>
+
+  <div class="bg-khoa">
+    <div class="flex flex-wrap items-center gap-x-1 px-2">
+      {
+        LOI_TAT.map((l) => (
+          <a
+            href={l.duongDan}
+            class="px-3 py-2 text-sm font-medium text-white/90 hover:bg-khoa-dam hover:text-white"
+          >
+            {l.nhan}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</header>

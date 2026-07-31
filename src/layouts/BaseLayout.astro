@@ -1,0 +1,39 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const TEN_KHOA = 'Khoa Điều dưỡng - Kỹ thuật Y học';
+const {
+  title,
+  description = 'Trang thông tin của Khoa Điều dưỡng - Kỹ thuật Y học, Trường Cao đẳng Y tế Đồng Tháp.',
+} = Astro.props;
+const tieuDeTrang = title ? `${title} · ${TEN_KHOA}` : TEN_KHOA;
+---
+
+<!doctype html>
+<html lang="vi" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{tieuDeTrang}</title>
+  </head>
+  <body class="min-h-full">
+    <div class="min-h-screen bg-nen py-0 sm:py-5">
+      <div class="khung-trang overflow-hidden shadow-md sm:rounded-o">
+        <Header />
+        <main>
+          <slot />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  </body>
+</html>

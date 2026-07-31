@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+import { ngay } from '../lib/dinh-dang';
+
+const cauHinh = await getEntry('cauHinh', 'site');
+
+const tatCaThongBao = (await getCollection('thongBao')).sort((a, b) => {
+  if (a.data.noiBat !== b.data.noiBat) return a.data.noiBat ? -1 : 1;
+  return b.data.ngayTao.getTime() - a.data.ngayTao.getTime();
+});
+const thongBao = tatCaThongBao.slice(0, 6);
+const noiBat = tatCaThongBao.filter((b) => b.data.noiBat).slice(0, 3);
+
+const tinTuc = (await getCollection('tinTuc'))
+  .sort((a, b) => b.data.ngayTao.getTime() - a.data.ngayTao.getTime())
+  .slice(0, 4);
+
+const tinMoi = [
+  ...tatCaThongBao.map((b) => ({ ...b, duongDanGoc: 'thong-bao' })),
+  ...(await getCollection('tinTuc')).map((t) => ({ ...t, duongDanGoc: 'tin-tuc' })),
+]
+  .sort((a, b) => b.data.ngayTao.getTime() - a.data.ngayTao.getTime())
+  .slice(0, 5);
+---
+
+<BaseLayout>
+  <div class="flex flex-col gap-6 px-4 py-5">
+    <div class="grid gap-5 lg:grid-cols-[1.9fr_1fr]">
+      <div class="relative flex min-h-[22rem] flex-col justify-center overflow-hidden rounded-o p-7 text-white sm:p-10">
+        <img
+          src="/co-so-truong.jpg"
+          alt="Cơ sở Trường Cao đẳng Y tế Đồng Tháp"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-muc/95 via-khoa/85 to-khoa/40" aria-hidden="true" />
+        <div class="relative max-w-lg">
+          <p class="font-ma text-xs uppercase tracking-widest text-vang">{cauHinh?.data.ten_truong}</p>
+          <h1 class="mt-2 font-tieu-de text-3xl font-bold leading-tight text-white sm:text-4xl">
+            {cauHinh?.data.ten_khoa}
+          </h1>
+          <p class="mt-4 leading-relaxed text-white/90">{cauHinh?.data.gioi_thieu_ngan}</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/gioi-thieu" class="nut bg-white font-semibold text-khoa hover:bg-vang-nhat">
+              Tìm hiểu về khoa
+            </a>
+            <a href="/thong-bao" class="nut border border-white/50 text-white hover:bg-white/10">
+              Xem thông báo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="flex flex-col">
+        <div class="thanh-muc">Tin mới nhất</div>
+        <div class="flex flex-1 flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+          {
+            tinMoi.length === 0 ? (
+              <p class="p-4 text-sm text-nhan">Chưa có tin.</p>
+            ) : (
+              tinMoi.map((t) => (
+                <a
+                  href={`/${t.duongDanGoc}/${t.id}`}
+                  class="muc-tin block px-4 py-2.5 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa"
+                >
+                  {t.data.tieuDe}
+                  <span class="mt-0.5 block font-ma text-[11px] text-nhan-mo">{ngay(t.data.ngayTao)}</span>
+                </a>
+              ))
+            )
+          }
+        </div>
+      </aside>
+    </div>
+
+    {
+      noiBat.length > 0 ? (
+        <section>
+          <div class="thanh-muc">
+            <span aria-hidden="true">🔔</span> Thông tin nổi bật
+          </div>
+          <div class="flex flex-col gap-3 rounded-b-o border border-t-0 border-ke bg-giay-sang p-4">
+            {noiBat.map((b) => (
+              <a href={`/thong-bao/${b.id}`} class="hop-noi-bat group block">
+                <p class="font-semibold text-dau-do group-hover:underline">📢 {b.data.tieuDe}</p>
+                {b.data.tomTat ? <p class="mt-1 text-sm text-muc-nhat">{b.data.tomTat}</p> : null}
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null
+    }
+
+    <div class="grid gap-5 lg:grid-cols-[1.9fr_1fr]">
+      <div class="flex flex-col gap-6">
+        <section>
+          <div class="thanh-muc justify-between">
+            <span>Tin tức - Thông báo</span>
+            <a href="/thong-bao" class="text-xs font-normal text-white/90 hover:text-vang">
+              Xem tất cả »
+            </a>
+          </div>
+          <ul class="divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+            {
+              thongBao.map((b) => (
+                <li>
+                  <a
+                    href={`/thong-bao/${b.id}`}
+                    class="flex items-start justify-between gap-3 px-4 py-3 hover:bg-khoa-nhat"
+                  >
+                    <span class="muc-tin text-sm font-medium text-muc-nhat">{b.data.tieuDe}</span>
+                    <time datetime={b.data.ngayTao.toISOString()} class="shrink-0 font-ma text-[11px] text-nhan">
+                      {ngay(b.data.ngayTao)}
+                    </time>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        {
+          tinTuc.length > 0 ? (
+            <section>
+              <div class="thanh-muc justify-between">
+                <span>Hoạt động của khoa</span>
+                <a href="/tin-tuc" class="text-xs font-normal text-white/90 hover:text-vang">
+                  Xem tất cả »
+                </a>
+              </div>
+              <div class="grid gap-px overflow-hidden rounded-b-o border border-t-0 border-ke bg-ke sm:grid-cols-2">
+                {tinTuc.map((t) => (
+                  <a href={`/tin-tuc/${t.id}`} class="flex flex-col gap-1 bg-giay-sang p-4 hover:bg-khoa-nhat">
+                    <time datetime={t.data.ngayTao.toISOString()} class="font-ma text-[11px] text-nhan">
+                      {ngay(t.data.ngayTao)}
+                    </time>
+                    <h3 class="text-sm font-semibold leading-snug text-muc">{t.data.tieuDe}</h3>
+                    {t.data.tomTat ? <p class="line-clamp-2 text-xs text-nhan">{t.data.tomTat}</p> : null}
+                  </a>
+                ))}
+              </div>
+            </section>
+          ) : null
+        }
+      </div>
+
+      <aside class="flex flex-col gap-6">
+        <section>
+          <div class="thanh-muc">Liên kết nhanh</div>
+          <nav class="flex flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+            {
+              [
+                { d: '/doi-ngu', n: 'Đội ngũ giảng viên' },
+                { d: '/gioi-thieu', n: 'Giới thiệu khoa' },
+                { d: '/bieu-mau', n: 'Biểu mẫu' },
+                { d: '/lien-he', n: 'Liên hệ' },
+              ].map((o) => (
+                <a href={o.d} class="muc-tin px-4 py-2.5 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa">
+                  {o.n}
+                </a>
+              ))
+            }
+          </nav>
+        </section>
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

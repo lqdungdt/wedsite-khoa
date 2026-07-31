@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { getEntry, render } from 'astro:content';
+
+const trang = await getEntry('gioiThieu', 'index');
+const { Content } = trang ? await render(trang) : { Content: null };
+---
+
+<BaseLayout title={trang?.data.tieuDe ?? 'Giới thiệu'}>
+  <PageTitle tieuDe={trang?.data.tieuDe ?? 'Giới thiệu về khoa'} />
+
+  <div class="px-4 py-6">
+    <div class="mx-auto flex max-w-4xl flex-col gap-4 leading-relaxed text-muc-nhat">
+      {Content ? <Content /> : <p class="text-sm text-nhan">Nội dung giới thiệu chưa được cập nhật.</p>}
+    </div>
+
+    <div class="mt-10">
+      <a href="/doi-ngu" class="nut nut-phu">Xem cơ cấu nhân sự của khoa →</a>
+    </div>
+  </div>
+</BaseLayout>

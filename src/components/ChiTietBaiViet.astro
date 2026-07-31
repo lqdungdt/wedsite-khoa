@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import { ngay } from '../lib/dinh-dang';
+
+interface Props {
+  entry: CollectionEntry<'tinTuc' | 'thongBao'>;
+  duongDanGoc: string;
+  nhanLoai: string;
+  cungLoai: CollectionEntry<'tinTuc' | 'thongBao'>[];
+}
+const { entry, duongDanGoc, nhanLoai, cungLoai } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<div class="px-4 py-6">
+  <nav class="mb-3 flex flex-wrap items-center gap-1 text-xs text-nhan">
+    <a href="/" class="hover:text-khoa">Trang chủ</a>
+    <span aria-hidden="true">›</span>
+    <a href={duongDanGoc} class="hover:text-khoa">{nhanLoai}</a>
+  </nav>
+
+  <article class="mx-auto max-w-3xl">
+    <h1 class="font-tieu-de text-2xl font-bold leading-tight text-khoa sm:text-3xl">
+      {entry.data.tieuDe}
+    </h1>
+    <p class="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-b border-ke pb-3 text-sm text-nhan">
+      <time datetime={entry.data.ngayTao.toISOString()} class="font-ma text-xs">
+        {ngay(entry.data.ngayTao)}
+      </time>
+    </p>
+
+    {
+      entry.data.tomTat ? (
+        <p class="mt-5 rounded-o border-l-4 border-khoa bg-khoa-nhat py-3 pl-4 pr-3 text-base leading-relaxed text-muc">
+          {entry.data.tomTat}
+        </p>
+      ) : null
+    }
+    <div class="mt-5 flex flex-col gap-4 leading-relaxed text-muc-nhat [&_p]:leading-relaxed">
+      <Content />
+    </div>
+  </article>
+
+  {
+    cungLoai.length > 0 ? (
+      <section class="mx-auto mt-10 max-w-3xl">
+        <div class="thanh-muc">Bài khác</div>
+        <ul class="divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+          {cungLoai.map((k) => (
+            <li>
+              <a href={`${duongDanGoc}/${k.id}`} class="group flex gap-4 px-4 py-3 hover:bg-khoa-nhat">
+                <time datetime={k.data.ngayTao.toISOString()} class="whitespace-nowrap pt-0.5 font-ma text-xs text-nhan">
+                  {ngay(k.data.ngayTao)}
+                </time>
+                <span class="muc-tin text-sm text-muc-nhat group-hover:text-khoa">{k.data.tieuDe}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null
+  }
+</div>

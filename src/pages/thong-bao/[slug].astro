@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ChiTietBaiViet from '../../components/ChiTietBaiViet.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('thongBao');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const cungLoai = (await getCollection('thongBao'))
+  .filter((e) => e.id !== entry.id)
+  .sort((a, b) => b.data.ngayTao.getTime() - a.data.ngayTao.getTime())
+  .slice(0, 4);
+---
+
+<BaseLayout title={entry.data.tieuDe}>
+  <ChiTietBaiViet entry={entry} duongDanGoc="/thong-bao" nhanLoai="Thông báo" cungLoai={cungLoai} />
+</BaseLayout>

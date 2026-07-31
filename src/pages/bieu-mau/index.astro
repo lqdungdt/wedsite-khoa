@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import { getCollection } from 'astro:content';
+
+const bieuMau = await getCollection('bieuMau');
+
+const NHOM = [
+  { ma: 'giang-vien', ten: 'Biểu mẫu dành cho giảng viên' },
+  { ma: 'sinh-vien', ten: 'Biểu mẫu dành cho sinh viên' },
+] as const;
+---
+
+<BaseLayout title="Biểu mẫu">
+  <PageTitle
+    tieuDe="Biểu mẫu"
+    moTa="Đơn từ, mẫu báo cáo và biểu mẫu dùng chung của khoa. Tải về, điền và nộp theo hướng dẫn."
+  />
+
+  <div class="flex flex-col gap-8 px-4 py-6">
+    {
+      NHOM.map((nhom) => {
+        const dsTrongNhom = bieuMau.filter((b) => b.data.doiTuong === nhom.ma);
+        return (
+          <section>
+            <div class="thanh-muc">{nhom.ten}</div>
+            {dsTrongNhom.length === 0 ? (
+              <p class="rounded-b-o border border-t-0 border-ke bg-giay-sang px-4 py-6 text-center text-sm text-nhan">
+                Chưa có biểu mẫu nào trong nhóm này.
+              </p>
+            ) : (
+              <div class="grid gap-3 rounded-b-o sm:grid-cols-2 lg:grid-cols-3">
+                {dsTrongNhom.map((bm) => {
+                  const dinhDang = bm.data.file.split('.').pop()?.toUpperCase() ?? '';
+                  return (
+                    <a href={bm.data.file} download class="the group flex flex-col gap-2 p-4 hover:bg-khoa-nhat">
+                      <div class="flex items-center justify-between">
+                        <span class="huy-hieu bg-khoa-nhat text-khoa">{dinhDang}</span>
+                      </div>
+                      <h3 class="font-tieu-de text-sm font-semibold leading-snug text-muc group-hover:text-khoa">
+                        {bm.data.tieuDe}
+                      </h3>
+                      {bm.data.moTa ? <p class="text-xs text-nhan">{bm.data.moTa}</p> : null}
+                      <span class="mt-1 text-xs font-medium text-khoa">Tải về ↓</span>
+                    </a>
+                  );
+                })}
+              </div>
+            )}
+          </section>
+        );
+      })
+    }
+  </div>
+</BaseLayout>

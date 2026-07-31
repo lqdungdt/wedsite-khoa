@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DanhSachBaiViet from '../../components/DanhSachBaiViet.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('tinTuc');
+---
+
+<BaseLayout title="Tin tức">
+  <DanhSachBaiViet
+    entries={entries}
+    duongDanGoc="/tin-tuc"
+    tieuDe="Tin tức"
+    moTa="Hoạt động đào tạo, nghiên cứu, hợp tác doanh nghiệp và thành tích của sinh viên."
+  />
+</BaseLayout>

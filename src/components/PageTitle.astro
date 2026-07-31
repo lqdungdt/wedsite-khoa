@@ -1,0 +1,32 @@
+---
+interface Props {
+  tieuDe: string;
+  moTa?: string;
+  duongDan?: { nhan: string; href?: string }[];
+}
+const { tieuDe, moTa, duongDan = [] } = Astro.props;
+---
+
+<div class="border-b-2 border-khoa bg-giay-sang px-4 pb-3 pt-5">
+  <nav class="mb-1 flex flex-wrap items-center gap-1 text-xs text-nhan">
+    <a href="/" class="hover:text-khoa">Trang chủ</a>
+    {
+      duongDan.map((d) => (
+        <span class="flex items-center gap-1">
+          <span aria-hidden="true">›</span>
+          {d.href ? (
+            <a href={d.href} class="hover:text-khoa">
+              {d.nhan}
+            </a>
+          ) : (
+            <span class="text-muc-nhat">{d.nhan}</span>
+          )}
+        </span>
+      ))
+    }
+    <span aria-hidden="true">›</span>
+    <span class="text-muc-nhat">{tieuDe}</span>
+  </nav>
+  <h1 class="font-tieu-de text-2xl font-bold text-khoa sm:text-3xl">{tieuDe}</h1>
+  {moTa ? <p class="mt-1.5 max-w-2xl text-sm text-nhan">{moTa}</p> : null}
+</div>

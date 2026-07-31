@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { getCollection } from 'astro:content';
+
+const canBo = (await getCollection('giangVien')).sort((a, b) => a.data.thuTu - b.data.thuTu);
+
+const cacNhom = [
+  { ma: 'lanh-dao', ten: 'Lãnh đạo khoa' },
+  { ma: 'van-phong', ten: 'Văn phòng khoa' },
+  { ma: 'giang-vien', ten: 'Giảng viên' },
+]
+  .map((n) => ({ ...n, giangVien: canBo.filter((gv) => gv.data.nhom === n.ma) }))
+  .filter((n) => n.giangVien.length > 0);
+
+const tongSo = canBo.length;
+---
+
+<BaseLayout title="Cơ cấu nhân sự">
+  <PageTitle
+    tieuDe="Cơ cấu nhân sự"
+    moTa={`Khoa hiện có ${tongSo} cán bộ, giảng viên.`}
+    duongDan={[{ nhan: 'Giới thiệu', href: '/gioi-thieu' }]}
+  />
+
+  <div class="flex flex-col gap-8 px-4 py-6">
+    {
+      cacNhom.map((nhom) => (
+        <section>
+          <div class="thanh-muc">{nhom.ten}</div>
+          <ul class="grid gap-px overflow-hidden rounded-b-o border border-t-0 border-ke bg-ke sm:grid-cols-2 lg:grid-cols-3">
+            {nhom.giangVien.map((gv) => (
+              <li class="flex flex-col bg-giay-sang p-4">
+                <p class="nhan-nho text-khoa">{gv.data.hocVi ?? 'Giảng viên'}</p>
+                <p class="mt-1 font-tieu-de text-base font-semibold text-muc">{gv.data.hoTen}</p>
+                {gv.data.chucVu ? <p class="text-sm font-medium text-khoa">{gv.data.chucVu}</p> : null}
+                {gv.data.chuyenMon ? <p class="mt-2 text-sm text-nhan">{gv.data.chuyenMon}</p> : null}
+                <a href={`mailto:${gv.data.email}`} class="mt-3 block truncate font-ma text-xs text-khoa hover:underline">
+                  {gv.data.email}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</BaseLayout>

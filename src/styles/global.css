@@ -1,0 +1,218 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/*
+  Hệ thống thiết kế - website khoa
+  --------------------------------
+  Phong cách cổng thông tin trường học: nền xanh dương nhạt, khung nội dung màu
+  trắng căn giữa, màu chủ đạo xanh dương, thanh menu màu be, dấu nhấn vàng và đỏ.
+  Port nguyên vẹn từ website-khoa (Next.js) sang Astro.
+*/
+
+@theme {
+  /* Nền và mực */
+  --color-nen: #d3e7f7; /* nền trang công khai - xanh dương nhạt */
+  --color-giay: #f3f6fb; /* nền khu quản trị - xám xanh rất nhạt */
+  --color-giay-sang: #ffffff; /* mặt thẻ, bảng, khung trắng */
+  --color-muc: #103a63; /* xanh navy đậm - tiêu đề, nền sidebar */
+  --color-muc-nhat: #1f2f45; /* chữ thân */
+  --color-nhan: #5a6b7d; /* chữ phụ, nhãn */
+  --color-nhan-mo: #8a99a9; /* chữ mờ */
+
+  /* Màu chủ đạo của khoa - xanh dương cổng thông tin */
+  --color-khoa: #0b5cab; /* nút chính, liên kết, thanh tiêu đề mục */
+  --color-khoa-dam: #084a8c;
+  --color-khoa-nhat: #e8f2fc; /* nền nhấn nhẹ, dòng hover */
+
+  /* Thanh menu màu be */
+  --color-be: #e6dcc3;
+  --color-be-dam: #d8cba8;
+
+  /* Vàng gold - dấu nhấn kỷ niệm, số liệu */
+  --color-vang: #f0b429;
+  --color-vang-nhat: #fdf4dc;
+
+  /* Dấu đỏ - tiêu đề tin nóng, dùng dè dặt */
+  --color-dau-do: #c0392b;
+  --color-dau-do-nhat: #fbeae8;
+
+  /* Trạng thái */
+  --color-thanh-cong: #1e7a4b;
+  --color-thanh-cong-nhat: #e6f4ec;
+  --color-canh-bao: #a86a12;
+  --color-canh-bao-nhat: #fdf3e2;
+
+  /* Đường kẻ */
+  --color-ke: #d5dfea;
+  --color-ke-dam: #b9c6d5;
+
+  /* Chữ */
+  --font-tieu-de: "Lora", Georgia, serif;
+  --font-than: "Be Vietnam Pro", system-ui, sans-serif;
+  --font-ma: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-o: 5px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-than);
+    color: var(--color-muc-nhat);
+    background-color: var(--color-giay);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-tieu-de);
+    color: var(--color-muc);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-khoa);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Giấy ô ly: motif xuyên suốt của site. Ô 22px như vở kẻ ô của học sinh. */
+  .o-ly {
+    background-image: linear-gradient(var(--color-ke) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-ke) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: -1px -1px;
+  }
+
+  /* Ô ly trên nền mực đậm, dùng cho sidebar và khối hero */
+  .o-ly-toi {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-position: -1px -1px;
+  }
+
+  .the {
+    background-color: var(--color-giay-sang);
+    border: 1px solid var(--color-ke);
+    border-radius: var(--radius-o);
+  }
+
+  .nut {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    border-radius: var(--radius-o);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+  }
+
+  .nut-chinh {
+    background-color: var(--color-khoa);
+    color: #fff;
+  }
+  .nut-chinh:hover {
+    background-color: var(--color-khoa-dam);
+  }
+
+  .nut-phu {
+    background-color: var(--color-giay-sang);
+    border-color: var(--color-ke-dam);
+    color: var(--color-muc-nhat);
+  }
+  .nut-phu:hover {
+    background-color: var(--color-khoa-nhat);
+    border-color: var(--color-khoa);
+  }
+
+  /* Nhãn nhỏ in hoa, dùng cho eyebrow và nhãn cột */
+  .nhan-nho {
+    font-family: var(--font-ma);
+    font-size: 0.688rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-nhan);
+  }
+
+  .huy-hieu {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ---- Phong cách cổng thông tin ---- */
+
+  /* Khung nội dung trắng căn giữa trên nền xanh nhạt */
+  .khung-trang {
+    max-width: 1200px;
+    margin-inline: auto;
+    background-color: var(--color-giay-sang);
+  }
+
+  /* Thanh tiêu đề mục: nền xanh, chữ trắng, có gạch vàng bên trái */
+  .thanh-muc {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--color-khoa);
+    color: #fff;
+    font-family: var(--font-tieu-de);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-o) var(--radius-o) 0 0;
+  }
+  .thanh-muc::before {
+    content: "";
+    width: 4px;
+    height: 1.15em;
+    background-color: var(--color-vang);
+    border-radius: 2px;
+  }
+
+  /* Hộp thông tin nổi bật: viền gạch đứt màu vàng như thông báo trên cổng trường */
+  .hop-noi-bat {
+    border: 1px dashed var(--color-vang);
+    background-color: var(--color-vang-nhat);
+    border-radius: var(--radius-o);
+    padding: 0.75rem 1rem;
+  }
+
+  /* Liên kết tin trong danh sách: dấu đầu dòng vuông màu xanh */
+  .muc-tin {
+    position: relative;
+    padding-left: 1rem;
+  }
+  .muc-tin::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-khoa);
+  }
+}
+
+/* Tôn trọng thiết lập giảm chuyển động của người dùng */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
