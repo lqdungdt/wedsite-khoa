@@ -1,10 +1,8 @@
 backend:
   name: github
-  # TODO: thay bằng "ten-tai-khoan-github/ten-repo" sau khi tạo repo GitHub.
-  repo: your-github-org/website-khoa-astro
+  repo: lqdungdt/wedsite-khoa
   branch: main
-  # TODO: thay bằng URL Cloudflare Worker (sveltia-cms-auth) sau khi deploy - xem HUONG-DAN-TRIEN-KHAI.md
-  base_url: https://cms-auth.YOURSUBDOMAIN.workers.dev
+  base_url: https://sveltia-cms-auth.cdytdt.workers.dev
   auth_endpoint: auth
 
 local_backend: true
