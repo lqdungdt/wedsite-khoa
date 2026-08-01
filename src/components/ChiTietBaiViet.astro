@@ -4,10 +4,10 @@ import { render } from 'astro:content';
 import { ngay } from '../lib/dinh-dang';
 
 interface Props {
-  entry: CollectionEntry<'tinTuc' | 'thongBao'>;
+  entry: CollectionEntry<'tinTuc' | 'thongBao' | 'tuyenSinh'>;
   duongDanGoc: string;
   nhanLoai: string;
-  cungLoai: CollectionEntry<'tinTuc' | 'thongBao'>[];
+  cungLoai: CollectionEntry<'tinTuc' | 'thongBao' | 'tuyenSinh'>[];
 }
 const { entry, duongDanGoc, nhanLoai, cungLoai } = Astro.props;
 const { Content } = await render(entry);

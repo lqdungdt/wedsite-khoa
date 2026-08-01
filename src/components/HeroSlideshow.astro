@@ -1,0 +1,39 @@
+---
+interface Props {
+  anh: string[];
+  alt: string;
+}
+const { anh, alt } = Astro.props;
+---
+
+<div class="hero-slideshow absolute inset-0">
+  {
+    anh.map((src, i) => (
+      <img
+        src={src}
+        alt={alt}
+        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000"
+        style={{ opacity: i === 0 ? 1 : 0 }}
+      />
+    ))
+  }
+</div>
+
+{
+  anh.length > 1 ? (
+    <script>
+      // Chuyển ảnh nền hero mỗi 6 giây (chỉ chạy khi có nhiều hơn 1 ảnh).
+      document.querySelectorAll<HTMLElement>('.hero-slideshow').forEach((wrap) => {
+        const imgs = Array.from(wrap.querySelectorAll<HTMLImageElement>('img'));
+        if (imgs.length < 2) return;
+        let hienTai = 0;
+        setInterval(() => {
+          const ke = (hienTai + 1) % imgs.length;
+          imgs[hienTai].style.opacity = '0';
+          imgs[ke].style.opacity = '1';
+          hienTai = ke;
+        }, 6000);
+      });
+    </script>
+  ) : null
+}

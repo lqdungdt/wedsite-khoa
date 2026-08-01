@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DanhSachBaiViet from '../../components/DanhSachBaiViet.astro';
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('tuyenSinh');
+---
+
+<BaseLayout title="Tuyển sinh">
+  <DanhSachBaiViet
+    entries={entries}
+    duongDanGoc="/tuyen-sinh"
+    tieuDe="Tuyển sinh"
+    moTa="Thông tin tuyển sinh, chỉ tiêu và phương thức xét tuyển của khoa."
+  />
+</BaseLayout>

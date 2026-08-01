@@ -37,6 +37,19 @@ collections:
       - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
       - { label: "Nội dung", name: "body", widget: "markdown" }
 
+  - name: "tuyen-sinh"
+    label: "Tuyển sinh"
+    folder: "src/content/tuyen-sinh"
+    create: true
+    identifier_field: tieuDe
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+      - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
+      - { label: "Tóm tắt", name: "tomTat", widget: "text" }
+      - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - { label: "Nội dung", name: "body", widget: "markdown" }
+
   - name: "giang-vien"
     label: "Đội ngũ giảng viên"
     folder: "src/content/giang-vien"
@@ -90,6 +103,22 @@ collections:
         media_folder: "/public/bieu-mau"
         public_folder: "/bieu-mau"
 
+  - name: "chuong-trinh-dao-tao"
+    label: "Chương trình đào tạo"
+    folder: "src/content/chuong-trinh-dao-tao"
+    create: true
+    identifier_field: tieuDe
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+      - { label: "Nhóm (vd: Chương trình đào tạo, Chuẩn đầu ra)", name: "nhom", widget: "string" }
+      - label: "Tệp đính kèm"
+        name: "file"
+        widget: "file"
+        media_folder: "/public/chuong-trinh-dao-tao"
+        public_folder: "/chuong-trinh-dao-tao"
+      - { label: "Thứ tự hiển thị", name: "thuTu", widget: "number", value_type: "int", default: 0 }
+
   - name: "cau-hinh"
     label: "Cấu hình chung"
     files:
@@ -115,6 +144,16 @@ collections:
       - name: "gioi-thieu"
         label: "Nội dung giới thiệu"
         file: "src/content/gioi-thieu/index.md"
+        fields:
+          - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
+          - { label: "Nội dung", name: "body", widget: "markdown" }
+
+  - name: "nghien-cuu"
+    label: "Nghiên cứu"
+    files:
+      - name: "nghien-cuu"
+        label: "Nội dung nghiên cứu"
+        file: "src/content/nghien-cuu/index.md"
         fields:
           - { label: "Tiêu đề", name: "tieuDe", widget: "string" }
           - { label: "Nội dung", name: "body", widget: "markdown" }

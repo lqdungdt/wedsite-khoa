@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import { getCollection } from 'astro:content';
+
+const tatCa = (await getCollection('chuongTrinhDaoTao')).sort((a, b) => a.data.thuTu - b.data.thuTu);
+
+// Nhóm theo tên nhóm (nhom), giữ thứ tự nhóm xuất hiện đầu tiên theo thuTu.
+const thuTuNhom: string[] = [];
+for (const m of tatCa) {
+  if (!thuTuNhom.includes(m.data.nhom)) thuTuNhom.push(m.data.nhom);
+}
+const cacNhom = thuTuNhom.map((ten) => ({
+  ten,
+  muc: tatCa.filter((m) => m.data.nhom === ten),
+}));
+---
+
+<BaseLayout title="Chương trình đào tạo">
+  <PageTitle
+    tieuDe="Chương trình đào tạo"
+    moTa="Chương trình đào tạo, chuẩn đầu ra và các văn bản liên quan của khoa."
+  />
+
+  <div class="flex flex-col gap-8 px-4 py-6">
+    {
+      cacNhom.length === 0 ? (
+        <p class="text-sm text-nhan">Nội dung chương trình đào tạo đang được cập nhật.</p>
+      ) : (
+        cacNhom.map((nhom) => (
+          <section>
+            <div class="thanh-muc">{nhom.ten}</div>
+            <ul class="divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+              {nhom.muc.map((m) => (
+                <li>
+                  <a
+                    href={m.data.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center justify-between gap-3 px-4 py-3 hover:bg-khoa-nhat"
+                  >
+                    <span class="text-sm font-medium text-muc-nhat">{m.data.tieuDe}</span>
+                    <span class="shrink-0 text-sm font-medium text-khoa">Xem ›</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      )
+    }
+  </div>
+</BaseLayout>

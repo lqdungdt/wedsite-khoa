@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSlideshow from '../components/HeroSlideshow.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { ngay } from '../lib/dinh-dang';
 
 const cauHinh = await getEntry('cauHinh', 'site');
+
+// Ảnh nền hero, tự chuyển đổi khi có từ 2 ảnh trở lên.
+// Thêm ảnh mới: copy file vào public/, rồi thêm đường dẫn vào mảng dưới đây.
+const ANH_HERO = ['/co-so-truong.jpg'];
 
 const tatCaThongBao = (await getCollection('thongBao')).sort((a, b) => {
   if (a.data.noiBat !== b.data.noiBat) return a.data.noiBat ? -1 : 1;
@@ -28,11 +33,7 @@ const tinMoi = [
   <div class="flex flex-col gap-6 px-4 py-5">
     <div class="grid gap-5 lg:grid-cols-[1.9fr_1fr]">
       <div class="relative flex min-h-[22rem] flex-col justify-center overflow-hidden rounded-o p-7 text-white sm:p-10">
-        <img
-          src="/co-so-truong.jpg"
-          alt="Cơ sở Trường Cao đẳng Y tế Đồng Tháp"
-          class="absolute inset-0 h-full w-full object-cover"
-        />
+        <HeroSlideshow anh={ANH_HERO} alt="Cơ sở Trường Cao đẳng Y tế Đồng Tháp" />
         <div class="absolute inset-0 bg-gradient-to-r from-muc/95 via-khoa/85 to-khoa/40" aria-hidden="true" />
         <div class="relative max-w-lg">
           <p class="font-ma text-xs uppercase tracking-widest text-vang">{cauHinh?.data.ten_truong}</p>

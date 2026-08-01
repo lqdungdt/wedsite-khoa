@@ -18,6 +18,11 @@ const thongBao = defineCollection({
   schema: baiVietSchema,
 });
 
+const tuyenSinh = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/tuyen-sinh' }),
+  schema: baiVietSchema,
+});
+
 // Ported từ src/lib/hang-so.ts (website-khoa cũ)
 const HOC_VI = [
   'Cử nhân',
@@ -74,4 +79,29 @@ const gioiThieu = defineCollection({
   schema: z.object({ tieuDe: z.string() }),
 });
 
-export const collections = { tinTuc, thongBao, giangVien, bieuMau, cauHinh, gioiThieu };
+const chuongTrinhDaoTao = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/chuong-trinh-dao-tao' }),
+  schema: z.object({
+    tieuDe: z.string(),
+    nhom: z.string(),
+    file: z.string(),
+    thuTu: z.number().int().default(0),
+  }),
+});
+
+const nghienCuu = defineCollection({
+  loader: glob({ pattern: 'index.md', base: './src/content/nghien-cuu' }),
+  schema: z.object({ tieuDe: z.string() }),
+});
+
+export const collections = {
+  tinTuc,
+  thongBao,
+  tuyenSinh,
+  giangVien,
+  bieuMau,
+  cauHinh,
+  gioiThieu,
+  chuongTrinhDaoTao,
+  nghienCuu,
+};

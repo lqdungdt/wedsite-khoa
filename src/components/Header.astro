@@ -17,15 +17,16 @@ const MENU_CHINH: {
       { nhan: 'Đội ngũ giảng viên', duongDan: '/doi-ngu' },
     ],
   },
-  { nhan: 'Thông báo', duongDan: '/thong-bao' },
   { nhan: 'Tin tức', duongDan: '/tin-tuc' },
-  { nhan: 'Biểu mẫu', duongDan: '/bieu-mau' },
+  { nhan: 'Chương trình đào tạo', duongDan: '/chuong-trinh-dao-tao' },
+  { nhan: 'Nghiên cứu', duongDan: '/nghien-cuu' },
   { nhan: 'Liên hệ', duongDan: '/lien-he' },
 ];
 
 const LOI_TAT = [
-  { nhan: 'Đội ngũ giảng viên', duongDan: '/doi-ngu' },
-  { nhan: 'Thông báo mới', duongDan: '/thong-bao' },
+  { nhan: 'Tuyển sinh', duongDan: '/tuyen-sinh' },
+  { nhan: 'Thông báo', duongDan: '/thong-bao' },
+  { nhan: 'Thông tin đào tạo', duongDan: '/chuong-trinh-dao-tao' },
   { nhan: 'Biểu mẫu', duongDan: '/bieu-mau' },
 ];
 ---
@@ -49,11 +50,13 @@ const LOI_TAT = [
         </span>
       </a>
 
-      <div class="ml-auto hidden items-center gap-3 rounded-o bg-khoa px-5 py-2.5 text-right text-white md:flex">
-        <div class="leading-tight">
-          <p class="font-tieu-de text-base font-semibold">Cổng thông tin</p>
-          <p class="text-xs text-white/80">Đào tạo · Nghiên cứu · Phục vụ người bệnh</p>
-        </div>
+      <div class="ml-auto hidden h-16 w-40 shrink-0 overflow-hidden rounded-o md:block">
+        {/* TODO: thay bằng ảnh riêng cho vị trí này khi có - tạm dùng ảnh cơ sở trường */}
+        <img
+          src="/co-so-truong.jpg"
+          alt="Trường Cao đẳng Y tế Đồng Tháp"
+          class="h-full w-full object-cover"
+        />
       </div>
     </div>
   </div>
