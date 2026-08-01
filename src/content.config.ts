@@ -94,6 +94,15 @@ const nghienCuu = defineCollection({
   schema: z.object({ tieuDe: z.string() }),
 });
 
+const anhHoatDong = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/anh-hoat-dong' }),
+  schema: z.object({
+    anh: z.string(),
+    moTa: z.string().optional(),
+    thuTu: z.number().int().default(0),
+  }),
+});
+
 export const collections = {
   tinTuc,
   thongBao,
@@ -104,4 +113,5 @@ export const collections = {
   gioiThieu,
   chuongTrinhDaoTao,
   nghienCuu,
+  anhHoatDong,
 };

@@ -103,6 +103,21 @@ collections:
         media_folder: "/public/bieu-mau"
         public_folder: "/bieu-mau"
 
+  - name: "anh-hoat-dong"
+    label: "Ảnh hoạt động"
+    folder: "src/content/anh-hoat-dong"
+    create: true
+    identifier_field: moTa
+    slug: "{{slug}}"
+    fields:
+      - label: "Ảnh"
+        name: "anh"
+        widget: "image"
+        media_folder: "/public/anh-hoat-dong"
+        public_folder: "/anh-hoat-dong"
+      - { label: "Mô tả ngắn", name: "moTa", widget: "string", required: false }
+      - { label: "Thứ tự hiển thị", name: "thuTu", widget: "number", value_type: "int", default: 0 }
+
   - name: "chuong-trinh-dao-tao"
     label: "Chương trình đào tạo"
     folder: "src/content/chuong-trinh-dao-tao"

@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import HeroSlideshow from './HeroSlideshow.astro';
+
+const anh = (await getCollection('anhHoatDong')).sort((a, b) => a.data.thuTu - b.data.thuTu);
+---
+
+<div class="thanh-muc">Ảnh hoạt động</div>
+<div class="rounded-b-o border border-t-0 border-ke bg-giay-sang p-3">
+  {
+    anh.length === 0 ? (
+      <p class="text-sm text-nhan">Chưa có ảnh hoạt động.</p>
+    ) : (
+      <div class="relative h-44 overflow-hidden rounded-o">
+        <HeroSlideshow anh={anh.map((a) => a.data.anh)} alt="Ảnh hoạt động của khoa" />
+        {anh[0]?.data.moTa ? (
+          <p class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2 text-xs text-white">
+            {anh[0].data.moTa}
+          </p>
+        ) : null}
+      </div>
+    )
+  }
+</div>

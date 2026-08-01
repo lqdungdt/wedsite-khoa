@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSlideshow from '../components/HeroSlideshow.astro';
+import TimKiem from '../components/TimKiem.astro';
+import AnhHoatDong from '../components/AnhHoatDong.astro';
 import { getCollection, getEntry } from 'astro:content';
 import { ngay } from '../lib/dinh-dang';
 
@@ -146,6 +148,14 @@ const tinMoi = [
       </div>
 
       <aside class="flex flex-col gap-6">
+        <section>
+          <TimKiem />
+        </section>
+
+        <section>
+          <AnhHoatDong />
+        </section>
+
         <section>
           <div class="thanh-muc">Liên kết nhanh</div>
           <nav class="flex flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">

@@ -1,0 +1,19 @@
+---
+// Tìm kiếm tức thì bằng Pagefind (chỉ hoạt động ở bản build/deploy, không hoạt động ở "npm run dev"
+// vì chỉ mục tìm kiếm được tạo bởi lệnh `pagefind` chạy sau bước build).
+---
+
+<div class="thanh-muc">Tìm kiếm</div>
+<div class="rounded-b-o border border-t-0 border-ke bg-giay-sang p-3">
+  <div id="tim-kiem-pagefind"></div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script is:inline src="/pagefind/pagefind-ui.js"></script>
+<script is:inline>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (typeof PagefindUI !== 'undefined') {
+      new PagefindUI({ element: '#tim-kiem-pagefind', showSubResults: true, showImages: false });
+    }
+  });
+</script>
