@@ -14,7 +14,7 @@ Toàn bộ đều **miễn phí**.
 
 ## 2. Site đã chạy thật tại Cloudflare Workers
 
-Site đang chạy tại **https://wedsite-khoa.lqdung3.workers.dev** (deploy bằng `wrangler deploy`, cấu hình trong `wrangler.jsonc`). Lưu ý: luồng "Connect to Git" tự động của Cloudflare (Workers Builds) từng bị lỗi 522 ở bước validate nội bộ — nên lần đầu đã deploy thủ công bằng CLI. Xem mục 2.1 bên dưới để tự động hoá việc build+deploy qua GitHub Actions thay vì phải chạy tay mỗi lần.
+Site đang chạy tại **https://khoaddktyh.cdytdt.workers.dev** (deploy bằng `wrangler deploy`, cấu hình trong `wrangler.jsonc`). Lưu ý: luồng "Connect to Git" tự động của Cloudflare (Workers Builds) từng bị lỗi 522 ở bước validate nội bộ — nên lần đầu đã deploy thủ công bằng CLI. Xem mục 2.1 bên dưới để tự động hoá việc build+deploy qua GitHub Actions thay vì phải chạy tay mỗi lần.
 
 ### 2.1. Deploy tự động khi push code (GitHub Actions)
 
@@ -34,7 +34,7 @@ Vì hosting là Cloudflare (không phải Netlify), Decap CMS cần một dịch
 ### 3.1. Tạo GitHub OAuth App
 1. Vào **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App**.
 2. Điền:
-   - **Homepage URL**: `https://wedsite-khoa.lqdung3.workers.dev`
+   - **Homepage URL**: `https://khoaddktyh.cdytdt.workers.dev`
    - **Authorization callback URL**: `https://cms-auth.<ten-subdomain-cua-ban>.workers.dev/callback` (điền tạm, sẽ khớp chính xác sau khi deploy Worker ở bước 3.2)
 3. Lưu lại **Client ID** và **Client Secret**.
 
@@ -73,7 +73,7 @@ backend:
 
 Commit và push thay đổi này lên GitHub — Cloudflare Pages sẽ tự build lại.
 
-Từ giờ, vào `https://wedsite-khoa.lqdung3.workers.dev/admin/index.html` để đăng nhập bằng tài khoản GitHub và chỉnh sửa: Tin tức, Thông báo, Đội ngũ giảng viên, Biểu mẫu, Cấu hình chung, Giới thiệu.
+Từ giờ, vào `https://khoaddktyh.cdytdt.workers.dev/admin/index.html` để đăng nhập bằng tài khoản GitHub và chỉnh sửa: Tin tức, Thông báo, Đội ngũ giảng viên, Biểu mẫu, Cấu hình chung, Giới thiệu.
 
 ## 4. Google Form cho trang Liên hệ
 
@@ -91,15 +91,15 @@ Từ giờ, vào `https://wedsite-khoa.lqdung3.workers.dev/admin/index.html` đ�
 Nếu muốn dùng địa chỉ như `khoadieuduong.cdytdt.edu.vn` thay vì `*.workers.dev`:
 
 1. Domain `cdytdt.edu.vn` cần được quản lý DNS qua Cloudflare (hoặc ít nhất ủy quyền một subdomain CNAME sang Cloudflare) — cần phối hợp với người quản trị DNS của trường.
-2. Trong Cloudflare dashboard → **Workers & Pages** → chọn Worker `wedsite-khoa` → tab **Settings** → **Domains & Routes** → **Add** → **Custom domain**, làm theo hướng dẫn.
+2. Trong Cloudflare dashboard → **Workers & Pages** → chọn Worker `khoaddktyh` → tab **Settings** → **Domains & Routes** → **Add** → **Custom domain**, làm theo hướng dẫn.
 
 ---
 
 ## Việc bạn cần làm ngay bây giờ
 
 - [x] Tạo GitHub repo, đẩy code lên (`github.com/lqdungdt/wedsite-khoa`)
-- [x] Deploy lần đầu lên Cloudflare Workers (`wedsite-khoa.lqdung3.workers.dev`)
-- [ ] Thêm 2 secret `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` vào GitHub repo để bật deploy tự động (bước 2.1)
+- [x] Deploy lần đầu lên Cloudflare Workers (`khoaddktyh.cdytdt.workers.dev`)
+- [x] Thêm 2 secret `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` vào GitHub repo, deploy tự động đã chạy được (bước 2.1)
 - [ ] Nếu muốn dùng CMS để tự đăng tin: làm bước 3
 - [ ] Nếu muốn form liên hệ: tạo Google Form (bước 4)
 
