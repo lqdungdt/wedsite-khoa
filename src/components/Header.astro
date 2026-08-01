@@ -50,12 +50,16 @@ const LOI_TAT = [
         </span>
       </a>
 
-      <div class="ml-auto hidden h-16 w-40 shrink-0 overflow-hidden rounded-o md:block">
-        {/* TODO: thay bằng ảnh riêng cho vị trí này khi có - tạm dùng ảnh cơ sở trường */}
+      <div class="relative ml-auto hidden h-20 w-56 shrink-0 md:block">
         <img
-          src="/co-so-truong.jpg"
+          src="/truong.jpg"
           alt="Trường Cao đẳng Y tế Đồng Tháp"
           class="h-full w-full object-cover"
+        />
+        {/* Bóng mờ trắng bên trái, hòa dần vào nền trắng của header */}
+        <div
+          class="pointer-events-none absolute inset-0 bg-gradient-to-r from-giay-sang via-giay-sang/60 to-transparent"
+          aria-hidden="true"
         />
       </div>
     </div>
