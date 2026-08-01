@@ -3,9 +3,9 @@ tieuDe: Giới thiệu về khoa
 ---
 ***Lãnh đạo khoa:***
 
-Trưởng khoa: ThS. Trịnh Quang Chung
+Trưởng khoa: ThS CKII. Trịnh Quang Chung
 
-Phó trưởng khoa: TS. Lê Quốc Dũng
+Phó trưởng khoa: TS ĐD. Lê Quốc Dũng
 
 ***Chức năng - Nhiệm vụ***
 
@@ -13,15 +13,11 @@ Phó trưởng khoa: TS. Lê Quốc Dũng
 
 \- Thực hiện kế hoạch giảng dạy, học tập và các hoạt động ngoại khóa theo chương trình, kế hoạch giảng dạy hằng năm của trường theo quy định của Bộ trưởng Bộ Lao động - Thương binh và Xã hội, bao gồm:
 
-
        Xây dựng chương trình đào tạo; biên soạn tài liệu, giáo trình đào tạo, học liệu của từng ngành, nghề theo từng trình độ đào tạo và hình thức đào tạo thuộc khoa, bộ môn mình quản lý hoặc do hiệu trưởng giao.
-
 
       Tổ chức biên soạn đề cương chi tiết các môn học, mô-đun liên quan bảo đảm tính thống nhất, tránh chồng chéo, trùng lặp giữa các môn học, mô-đun của chương trình đào tạo hoặc giữa các trình độ đào tạo.
 
-
       Tổ chức đào tạo, nghiên cứu, đổi mới phương pháp giảng dạy; ứng dụng công nghệ thông tin, truyền thông vào dạy học nhằm nâng cao chất lượng đào tạo.
-
 
      Xây dựng và thực hiện phương pháp kiểm tra, thi, đánh giá kết quả học tập, rèn luyện của người học, bảo đảm chuẩn đầu ra của người học theo cam kết đã được công bố, đáp ứng nhu cầu sử dụng của thị trường lao động.
 
