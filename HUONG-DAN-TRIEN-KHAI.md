@@ -100,8 +100,9 @@ Nếu muốn dùng địa chỉ như `khoadieuduong.cdytdt.edu.vn` thay vì `*.w
 - [x] Tạo GitHub repo, đẩy code lên (`github.com/lqdungdt/wedsite-khoa`)
 - [x] Deploy lần đầu lên Cloudflare Workers (`khoaddktyh.cdytdt.workers.dev`)
 - [x] Thêm 2 secret `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` vào GitHub repo, deploy tự động đã chạy được (bước 2.1)
-- [ ] Nếu muốn dùng CMS để tự đăng tin: làm bước 3
+- [x] Bật CMS: đã đăng nhập được qua GitHub tại `khoaddktyh.cdytdt.workers.dev/admin/index.html` (bước 3)
 - [ ] Nếu muốn form liên hệ: tạo Google Form (bước 4)
+- [ ] Domain riêng của trường (tuỳ chọn, bước 5)
 
 ## Lệnh chạy thử cục bộ (đã kiểm thử, hoạt động tốt)
 
