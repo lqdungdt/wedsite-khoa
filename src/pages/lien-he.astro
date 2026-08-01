@@ -6,8 +6,8 @@ import { getEntry } from 'astro:content';
 const cauHinh = await getEntry('cauHinh', 'site');
 const dienThoaiTel = cauHinh?.data.dien_thoai.replace(/\s/g, '') ?? '';
 
-// TODO: thay bằng link nhúng Google Form thật (Form → Gửi → Nhúng <iframe> → copy URL vào src bên dưới).
-const GOOGLE_FORM_URL = '';
+const GOOGLE_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdeQifkHCUy61YoZrS6IiZO0HIBLY9QP21fKrN3louLVoKqNA/viewform?embedded=true';
 ---
 
 <BaseLayout title="Liên hệ">
