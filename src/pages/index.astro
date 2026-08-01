@@ -76,26 +76,26 @@ const tinMoi = [
       </aside>
     </div>
 
-    {
-      noiBat.length > 0 ? (
-        <section>
-          <div class="thanh-muc">
-            <span aria-hidden="true">🔔</span> Thông tin nổi bật
-          </div>
-          <div class="flex flex-col gap-3 rounded-b-o border border-t-0 border-ke bg-giay-sang p-4">
-            {noiBat.map((b) => (
-              <a href={`/thong-bao/${b.id}`} class="hop-noi-bat group block">
-                <p class="font-semibold text-dau-do group-hover:underline">📢 {b.data.tieuDe}</p>
-                {b.data.tomTat ? <p class="mt-1 text-sm text-muc-nhat">{b.data.tomTat}</p> : null}
-              </a>
-            ))}
-          </div>
-        </section>
-      ) : null
-    }
-
     <div class="grid gap-5 lg:grid-cols-[1.9fr_1fr]">
       <div class="flex flex-col gap-6">
+        {
+          noiBat.length > 0 ? (
+            <section>
+              <div class="thanh-muc">
+                <span aria-hidden="true">🔔</span> Thông tin nổi bật
+              </div>
+              <div class="flex flex-col gap-3 rounded-b-o border border-t-0 border-ke bg-giay-sang p-4">
+                {noiBat.map((b) => (
+                  <a href={`/thong-bao/${b.id}`} class="hop-noi-bat group block">
+                    <p class="font-semibold text-dau-do group-hover:underline">📢 {b.data.tieuDe}</p>
+                    {b.data.tomTat ? <p class="mt-1 text-sm text-muc-nhat">{b.data.tomTat}</p> : null}
+                  </a>
+                ))}
+              </div>
+            </section>
+          ) : null
+        }
+
         <section>
           <div class="thanh-muc justify-between">
             <span>Tin tức - Thông báo</span>
