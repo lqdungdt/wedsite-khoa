@@ -6,6 +6,7 @@ const baiVietSchema = z.object({
   ngayTao: z.coerce.date(),
   tomTat: z.string(),
   noiBat: z.boolean().default(false),
+  anh: z.string().optional(),
 });
 
 const tinTuc = defineCollection({

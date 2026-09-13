@@ -22,6 +22,12 @@ collections:
       - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
       - { label: "Tóm tắt", name: "tomTat", widget: "text" }
       - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - label: "Ảnh minh họa"
+        name: "anh"
+        widget: "image"
+        required: false
+        media_folder: "/public/tin-tuc"
+        public_folder: "/tin-tuc"
       - { label: "Nội dung", name: "body", widget: "markdown" }
 
   - name: "thong-bao"
@@ -35,6 +41,12 @@ collections:
       - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
       - { label: "Tóm tắt", name: "tomTat", widget: "text" }
       - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - label: "Ảnh minh họa"
+        name: "anh"
+        widget: "image"
+        required: false
+        media_folder: "/public/thong-bao"
+        public_folder: "/thong-bao"
       - { label: "Nội dung", name: "body", widget: "markdown" }
 
   - name: "tuyen-sinh"
@@ -48,6 +60,12 @@ collections:
       - { label: "Ngày đăng", name: "ngayTao", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD/MM/YYYY", time_format: false }
       - { label: "Tóm tắt", name: "tomTat", widget: "text" }
       - { label: "Nổi bật", name: "noiBat", widget: "boolean", default: false }
+      - label: "Ảnh minh họa"
+        name: "anh"
+        widget: "image"
+        required: false
+        media_folder: "/public/tuyen-sinh"
+        public_folder: "/tuyen-sinh"
       - { label: "Nội dung", name: "body", widget: "markdown" }
 
   - name: "giang-vien"

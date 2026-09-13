@@ -115,16 +115,29 @@ const tinMoi = [
                   Xem tất cả »
                 </a>
               </div>
-              <div class="grid gap-px overflow-hidden rounded-b-o border border-t-0 border-ke bg-ke sm:grid-cols-2">
-                {tinTuc.map((t) => (
-                  <a href={`/tin-tuc/${t.id}`} class="flex flex-col gap-1 bg-giay-sang p-4 hover:bg-khoa-nhat">
-                    <time datetime={t.data.ngayTao.toISOString()} class="font-ma text-[11px] text-nhan">
-                      {ngay(t.data.ngayTao)}
-                    </time>
-                    <h3 class="text-sm font-semibold leading-snug text-muc">{t.data.tieuDe}</h3>
-                    {t.data.tomTat ? <p class="line-clamp-2 text-xs text-nhan">{t.data.tomTat}</p> : null}
-                  </a>
-                ))}
+              <div class="flex flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+                {tinTuc.map((t) => {
+                  const laMoi = Date.now() - t.data.ngayTao.getTime() < 14 * 24 * 60 * 60 * 1000;
+                  return (
+                    <a href={`/tin-tuc/${t.id}`} class="flex gap-3 p-3 hover:bg-khoa-nhat">
+                      {t.data.anh ? (
+                        <img src={t.data.anh} alt="" class="h-20 w-28 shrink-0 rounded-o object-cover" />
+                      ) : (
+                        <div class="h-20 w-28 shrink-0 rounded-o bg-khoa-nhat" aria-hidden="true" />
+                      )}
+                      <div class="min-w-0">
+                        <time datetime={t.data.ngayTao.toISOString()} class="font-ma text-[11px] text-nhan">
+                          {ngay(t.data.ngayTao)}
+                        </time>
+                        <h3 class="mt-0.5 text-sm font-semibold leading-snug text-muc">
+                          {t.data.tieuDe}
+                          {laMoi ? <span class="huy-hieu ml-1.5 bg-dau-do align-middle text-white">Mới</span> : null}
+                        </h3>
+                        {t.data.tomTat ? <p class="mt-1 line-clamp-2 text-xs text-nhan">{t.data.tomTat}</p> : null}
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </section>
           ) : null
