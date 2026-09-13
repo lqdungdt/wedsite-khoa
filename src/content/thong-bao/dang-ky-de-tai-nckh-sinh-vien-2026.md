@@ -1,8 +1,10 @@
 ---
-tieuDe: "Đăng ký đề tài nghiên cứu khoa học sinh viên năm 2026"
+tieuDe: Đăng ký đề tài nghiên cứu khoa học sinh viên năm 2026
 ngayTao: 2026-07-20
-tomTat: "Nhận hồ sơ đến hết ngày 30/09. Mỗi nhóm tối đa 3 sinh viên, có giảng viên hướng dẫn."
+tomTat: Nhận hồ sơ đến hết ngày 30/09. Mỗi nhóm tối đa 3 sinh viên, có giảng
+  viên hướng dẫn.
 noiBat: false
+anh: /thong-bao/co-so-truong.jpg
 ---
 Khoa mở đợt đăng ký đề tài nghiên cứu khoa học dành cho sinh viên năm 2026.
 
