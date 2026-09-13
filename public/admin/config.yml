@@ -28,7 +28,11 @@ collections:
         required: false
         media_folder: "/public/tin-tuc"
         public_folder: "/tin-tuc"
-      - { label: "Nội dung", name: "body", widget: "markdown" }
+      - label: "Nội dung"
+        name: "body"
+        widget: "markdown"
+        media_folder: "/public/tin-tuc"
+        public_folder: "/tin-tuc"
 
   - name: "thong-bao"
     label: "Thông báo"
@@ -47,7 +51,11 @@ collections:
         required: false
         media_folder: "/public/thong-bao"
         public_folder: "/thong-bao"
-      - { label: "Nội dung", name: "body", widget: "markdown" }
+      - label: "Nội dung"
+        name: "body"
+        widget: "markdown"
+        media_folder: "/public/thong-bao"
+        public_folder: "/thong-bao"
 
   - name: "tuyen-sinh"
     label: "Tuyển sinh"
@@ -66,7 +74,11 @@ collections:
         required: false
         media_folder: "/public/tuyen-sinh"
         public_folder: "/tuyen-sinh"
-      - { label: "Nội dung", name: "body", widget: "markdown" }
+      - label: "Nội dung"
+        name: "body"
+        widget: "markdown"
+        media_folder: "/public/tuyen-sinh"
+        public_folder: "/tuyen-sinh"
 
   - name: "giang-vien"
     label: "Đội ngũ giảng viên"
