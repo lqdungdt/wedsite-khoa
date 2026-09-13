@@ -38,25 +38,31 @@ const tinMoi = [
         <HeroSlideshow anh={ANH_HERO} alt="Ảnh hoạt động Trường Cao đẳng Y tế Đồng Tháp" />
       </div>
 
-      <aside class="flex flex-col">
-        <div class="thanh-muc">Tin mới nhất</div>
-        <div class="flex flex-1 flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
-          {
-            tinMoi.length === 0 ? (
-              <p class="p-4 text-sm text-nhan">Chưa có tin.</p>
-            ) : (
-              tinMoi.map((t) => (
-                <a
-                  href={`/${t.duongDanGoc}/${t.id}`}
-                  class="muc-tin block px-4 py-2.5 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa"
-                >
-                  {t.data.tieuDe}
-                  <span class="mt-0.5 block font-ma text-[11px] text-nhan-mo">{ngay(t.data.ngayTao)}</span>
-                </a>
-              ))
-            )
-          }
-        </div>
+      <aside class="flex flex-col gap-6">
+        <section>
+          <TimKiem />
+        </section>
+
+        <section class="flex flex-1 flex-col">
+          <div class="thanh-muc">Tin mới nhất</div>
+          <div class="flex flex-1 flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+            {
+              tinMoi.length === 0 ? (
+                <p class="p-4 text-sm text-nhan">Chưa có tin.</p>
+              ) : (
+                tinMoi.map((t) => (
+                  <a
+                    href={`/${t.duongDanGoc}/${t.id}`}
+                    class="muc-tin block px-4 py-2.5 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa"
+                  >
+                    {t.data.tieuDe}
+                    <span class="mt-0.5 block font-ma text-[11px] text-nhan-mo">{ngay(t.data.ngayTao)}</span>
+                  </a>
+                ))
+              )
+            }
+          </div>
+        </section>
       </aside>
     </div>
 
@@ -145,10 +151,6 @@ const tinMoi = [
       </div>
 
       <aside class="flex flex-col gap-6">
-        <section>
-          <TimKiem />
-        </section>
-
         <section>
           <AnhHoatDong />
         </section>
