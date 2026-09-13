@@ -161,17 +161,48 @@ const tinMoi = [
           <div class="flex flex-col gap-2 rounded-b-o border border-t-0 border-ke bg-giay-sang p-2">
             {
               [
-                { d: '/tuyen-sinh', n: 'Thông tin tuyển sinh', icon: '📢', mau: '#c0392b' },
-                { d: '/thong-bao', n: 'Thông báo', icon: '📌', mau: '#0b5cab' },
-                { d: '/chuong-trinh-dao-tao', n: 'Chương trình đào tạo', icon: '🎓', mau: '#1e7a4b' },
-                { d: '/bieu-mau', n: 'Biểu mẫu', icon: '📄', mau: '#a86a12' },
-                { d: '/doi-ngu', n: 'Đội ngũ giảng viên', icon: '👩‍⚕️', mau: '#103a63' },
-                { d: '/lien-he', n: 'Liên hệ', icon: '☎', mau: '#6b4fa0' },
+                {
+                  d: 'https://htql.cdytdt.edu.vn/form/calendar/showFormulationAll.aspx',
+                  n: 'Lịch công tác',
+                  icon: '📅',
+                  mau: '#f0b429',
+                  chu: '#103a63',
+                },
+                {
+                  d: 'https://vpdt.dongthap.gov.vn/',
+                  n: 'Văn phòng điện tử',
+                  icon: '🖥️',
+                  mau: '#0b5cab',
+                  chu: '#ffffff',
+                },
+                {
+                  d: 'https://htql.cdytdt.edu.vn/login.aspx',
+                  n: 'Hệ thống đào tạo',
+                  icon: '🎓',
+                  mau: '#1e7a4b',
+                  chu: '#ffffff',
+                },
+                {
+                  d: 'https://library.cdytdt.edu.vn/',
+                  n: 'Thư viện điện tử',
+                  icon: '📚',
+                  mau: '#6b4fa0',
+                  chu: '#ffffff',
+                },
+                {
+                  d: 'https://thuvienphapluat.vn/',
+                  n: 'Thư viện pháp luật',
+                  icon: '⚖️',
+                  mau: '#c0392b',
+                  chu: '#ffffff',
+                },
               ].map((o) => (
                 <a
                   href={o.d}
-                  class="flex items-center gap-2 rounded-o px-4 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-sm transition-opacity hover:opacity-90"
-                  style={{ backgroundColor: o.mau }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-2 rounded-o px-4 py-3 text-sm font-bold uppercase tracking-wide shadow-sm transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: o.mau, color: o.chu }}
                 >
                   <span aria-hidden="true">{o.icon}</span>
                   {o.n}
