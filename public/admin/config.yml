@@ -103,6 +103,21 @@ collections:
         media_folder: "/public/bieu-mau"
         public_folder: "/bieu-mau"
 
+  - name: "anh-banner"
+    label: "Ảnh banner trang chủ"
+    folder: "src/content/anh-banner"
+    create: true
+    identifier_field: moTa
+    slug: "{{slug}}"
+    fields:
+      - label: "Ảnh"
+        name: "anh"
+        widget: "image"
+        media_folder: "/public/anh-banner"
+        public_folder: "/anh-banner"
+      - { label: "Mô tả ngắn (vd: tên sự kiện)", name: "moTa", widget: "string", required: false }
+      - { label: "Thứ tự hiển thị", name: "thuTu", widget: "number", value_type: "int", default: 0 }
+
   - name: "anh-hoat-dong"
     label: "Ảnh hoạt động"
     folder: "src/content/anh-hoat-dong"

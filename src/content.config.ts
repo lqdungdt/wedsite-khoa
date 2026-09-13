@@ -103,6 +103,15 @@ const anhHoatDong = defineCollection({
   }),
 });
 
+const anhBanner = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/anh-banner' }),
+  schema: z.object({
+    anh: z.string(),
+    moTa: z.string().optional(),
+    thuTu: z.number().int().default(0),
+  }),
+});
+
 export const collections = {
   tinTuc,
   thongBao,
@@ -114,4 +123,5 @@ export const collections = {
   chuongTrinhDaoTao,
   nghienCuu,
   anhHoatDong,
+  anhBanner,
 };

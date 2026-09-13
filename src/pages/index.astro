@@ -8,9 +8,11 @@ import { ngay } from '../lib/dinh-dang';
 
 const cauHinh = await getEntry('cauHinh', 'site');
 
-// Ảnh nền hero, tự chuyển đổi khi có từ 2 ảnh trở lên.
-// Thêm ảnh mới: copy file vào public/, rồi thêm đường dẫn vào mảng dưới đây.
-const ANH_HERO = ['/co-so-truong.jpg'];
+// Ảnh nền hero: lấy từ collection "Ảnh banner trang chủ" (tự chỉnh qua /admin,
+// mục "Ảnh banner trang chủ" - tải ảnh lên là tự hiện, không cần sửa code).
+// Nếu chưa có ảnh nào, dùng tạm ảnh cơ sở trường mặc định.
+const anhBannerCms = (await getCollection('anhBanner')).sort((a, b) => a.data.thuTu - b.data.thuTu);
+const ANH_HERO = anhBannerCms.length > 0 ? anhBannerCms.map((a) => a.data.anh) : ['/co-so-truong.jpg'];
 
 const tatCaThongBao = (await getCollection('thongBao')).sort((a, b) => {
   if (a.data.noiBat !== b.data.noiBat) return a.data.noiBat ? -1 : 1;
