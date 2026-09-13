@@ -158,20 +158,27 @@ const tinMoi = [
 
         <section>
           <div class="thanh-muc">Liên kết nhanh</div>
-          <nav class="flex flex-col divide-y divide-ke rounded-b-o border border-t-0 border-ke bg-giay-sang">
+          <div class="flex flex-col gap-2 rounded-b-o border border-t-0 border-ke bg-giay-sang p-2">
             {
               [
-                { d: '/doi-ngu', n: 'Đội ngũ giảng viên' },
-                { d: '/gioi-thieu', n: 'Giới thiệu khoa' },
-                { d: '/bieu-mau', n: 'Biểu mẫu' },
-                { d: '/lien-he', n: 'Liên hệ' },
+                { d: '/tuyen-sinh', n: 'Thông tin tuyển sinh', icon: '📢', mau: '#c0392b' },
+                { d: '/thong-bao', n: 'Thông báo', icon: '📌', mau: '#0b5cab' },
+                { d: '/chuong-trinh-dao-tao', n: 'Chương trình đào tạo', icon: '🎓', mau: '#1e7a4b' },
+                { d: '/bieu-mau', n: 'Biểu mẫu', icon: '📄', mau: '#a86a12' },
+                { d: '/doi-ngu', n: 'Đội ngũ giảng viên', icon: '👩‍⚕️', mau: '#103a63' },
+                { d: '/lien-he', n: 'Liên hệ', icon: '☎', mau: '#6b4fa0' },
               ].map((o) => (
-                <a href={o.d} class="muc-tin px-4 py-2.5 text-sm text-muc-nhat hover:bg-khoa-nhat hover:text-khoa">
+                <a
+                  href={o.d}
+                  class="flex items-center gap-2 rounded-o px-4 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-sm transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: o.mau }}
+                >
+                  <span aria-hidden="true">{o.icon}</span>
                   {o.n}
                 </a>
               ))
             }
-          </nav>
+          </div>
         </section>
       </aside>
     </div>
